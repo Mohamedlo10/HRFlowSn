@@ -28,12 +28,7 @@ ob_start();
                 <input type="date" class="form-control clay-input" id="evaluation_date" name="evaluation_date" value="<?= $evaluation['evaluation_date'] ?>">
             </div>
             
-            <div class="col-md-6 mb-3">
-                <label for="score" class="form-label">Score (0-100)</label>
-                <input type="number" class="form-control clay-input" id="score" name="score" min="0" max="100" step="0.01" value="<?= $evaluation['score'] ?>">
-                <small class="text-muted">Laisser vide si non noté</small>
-            </div>
-            
+
             <div class="col-12 mb-3">
                 <label for="objectives" class="form-label">Objectifs</label>
                 <textarea class="form-control clay-input" id="objectives" name="objectives" rows="3"><?= htmlspecialchars($evaluation['objectives']) ?></textarea>

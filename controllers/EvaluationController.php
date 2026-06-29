@@ -47,7 +47,6 @@ class EvaluationController extends Controller {
                 'employee_id' => $this->post('employee_id'),
                 'evaluation_date' => $this->post('evaluation_date'),
                 'objectives' => $this->post('objectives'),
-                'score' => $this->post('score') ?: null,
                 'comments' => $this->post('comments')
             ];
             
@@ -94,7 +93,6 @@ class EvaluationController extends Controller {
                 'employee_id' => $this->post('employee_id'),
                 'evaluation_date' => $this->post('evaluation_date'),
                 'objectives' => $this->post('objectives'),
-                'score' => $this->post('score') ?: null,
                 'comments' => $this->post('comments')
             ];
             
@@ -163,5 +161,30 @@ class EvaluationController extends Controller {
         ];
         
         $this->view('evaluations/view.php', $data);
+    }
+    
+    /**
+     * Attribuer une note à l'évaluation
+     */
+    public function score() {
+        if (!$this->isPost()) {
+            $this->redirect('/HRFlowSn/index.php?route=evaluations');
+        }
+        
+        $id = $this->post('id');
+        $score = $this->post('score');
+        
+        if (!$id || $score === '') {
+            $this->setFlash('error', 'ID évaluation ou note manquant');
+            $this->redirect('/HRFlowSn/index.php?route=evaluations');
+        }
+        
+        if ($this->evaluationModel->update($id, ['score' => $score])) {
+            $this->setFlash('success', 'Note attribuée avec succès');
+        } else {
+            $this->setFlash('error', 'Erreur lors de l\'attribution de la note');
+        }
+        
+        $this->redirect('/HRFlowSn/index.php?route=evaluations/show&id=' . $id);
     }
 }

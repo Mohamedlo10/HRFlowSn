@@ -101,6 +101,26 @@ ob_start();
                 <i class="bi bi-<?= $evaluation['score'] >= 80 ? 'check-circle' : ($evaluation['score'] >= 60 ? 'exclamation-circle' : 'x-circle') ?>"></i>
                 <?= $evaluation['score'] >= 80 ? 'Performance excellente' : ($evaluation['score'] >= 60 ? 'Performance satisfaisante' : 'Performance à améliorer') ?>
             </div>
+            
+            <hr>
+            <form method="POST" action="/HRFlowSn/index.php?route=evaluations/score" class="mt-3">
+                <input type="hidden" name="id" value="<?= $evaluation['id'] ?>">
+                <label class="form-label text-muted small">Modifier la note</label>
+                <div class="input-group input-group-sm">
+                    <input type="number" class="form-control" name="score" min="0" max="100" step="0.01" value="<?= $evaluation['score'] ?>" required>
+                    <button class="btn btn-outline-primary" type="submit">Enregistrer</button>
+                </div>
+            </form>
+            
+            <?php else: ?>
+            <form method="POST" action="/HRFlowSn/index.php?route=evaluations/score" class="mt-4">
+                <input type="hidden" name="id" value="<?= $evaluation['id'] ?>">
+                <label class="form-label fw-bold">Attribuer une note</label>
+                <div class="input-group">
+                    <input type="number" class="form-control clay-input" name="score" min="0" max="100" step="0.01" placeholder="Ex: 85" required>
+                    <button class="btn btn-primary clay-btn" type="submit">Valider</button>
+                </div>
+            </form>
             <?php endif; ?>
         </div>
     </div>
