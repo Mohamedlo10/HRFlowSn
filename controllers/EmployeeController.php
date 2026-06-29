@@ -82,15 +82,16 @@ class EmployeeController extends Controller {
                 'email' => $this->post('email'),
                 'address' => '',
                 'qualification' => '',
-                'hire_date' => $this->post('hire_date'),
-                'base_salary' => $this->post('base_salary'),
+                'hire_date' => null,
+                'base_salary' => null,
                 'status' => 'Active'
             ];
             
             if ($this->employeeModel->create($employeeData)) {
-                $this->setFlash('success', 'Employé créé avec succès');
+                $newEmployeeId = $this->employeeModel->db->lastInsertId();
+                $this->setFlash('success', 'Employé créé avec succès. Veuillez maintenant créer son contrat pour activer son profil.');
                 clear_old_input();
-                $this->redirect('/HRFlowSn/index.php?route=employees');
+                $this->redirect('/HRFlowSn/index.php?route=contracts/create&employee_id=' . $newEmployeeId);
             } else {
                 $this->setFlash('error', 'Erreur lors de la création de l\'employé');
                 set_old_input($_POST);
@@ -140,7 +141,6 @@ class EmployeeController extends Controller {
                 'email' => $this->post('email'),
                 'address' => $this->post('address'),
                 'qualification' => $this->post('qualification'),
-                'base_salary' => $this->post('base_salary'),
                 'status' => $this->post('status')
             ];
             

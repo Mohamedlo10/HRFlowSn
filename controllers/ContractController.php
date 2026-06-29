@@ -56,8 +56,13 @@ class ContractController extends Controller {
             ];
             
             if ($this->contractModel->create($contractData)) {
-                // Synchroniser le salaire de base de l'employé
-                $this->employeeModel->update($contractData['employee_id'], ['base_salary' => $contractData['salary']]);
+                // Synchroniser le salaire de base de l'employé et la date d'embauche si non définie
+                $employee = $this->employeeModel->getById($contractData['employee_id']);
+                $updateData = ['base_salary' => $contractData['salary']];
+                if (empty($employee['hire_date'])) {
+                    $updateData['hire_date'] = $contractData['start_date'];
+                }
+                $this->employeeModel->update($contractData['employee_id'], $updateData);
                 
                 $this->setFlash('success', 'Contrat créé avec succès');
                 $this->redirect('/HRFlowSn/index.php?route=contracts');
@@ -109,8 +114,13 @@ class ContractController extends Controller {
             ];
             
             if ($this->contractModel->update($id, $contractData)) {
-                // Synchroniser le salaire de base de l'employé
-                $this->employeeModel->update($contractData['employee_id'], ['base_salary' => $contractData['salary']]);
+                // Synchroniser le salaire de base de l'employé et la date d'embauche si non définie
+                $employee = $this->employeeModel->getById($contractData['employee_id']);
+                $updateData = ['base_salary' => $contractData['salary']];
+                if (empty($employee['hire_date'])) {
+                    $updateData['hire_date'] = $contractData['start_date'];
+                }
+                $this->employeeModel->update($contractData['employee_id'], $updateData);
                 
                 $this->setFlash('success', 'Contrat mis à jour avec succès');
                 $this->redirect('/HRFlowSn/index.php?route=contracts');

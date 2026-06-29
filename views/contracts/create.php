@@ -15,7 +15,7 @@ ob_start();
                 <select class="form-select clay-input" id="employee_id" name="employee_id" required>
                     <option value="">Sélectionner un employé...</option>
                     <?php foreach ($employees as $employee): ?>
-                    <option value="<?= $employee['id'] ?>">
+                    <option value="<?= $employee['id'] ?>" <?= (isset($_GET['employee_id']) && $_GET['employee_id'] == $employee['id']) ? 'selected' : '' ?>>
                         <?= htmlspecialchars($employee['first_name'] . ' ' . $employee['last_name']) ?> 
                         (<?= htmlspecialchars($employee['employee_code']) ?>)
                     </option>

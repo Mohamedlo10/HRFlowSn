@@ -110,11 +110,7 @@ ob_start();
                 <input type="text" class="form-control clay-input" id="qualification" name="qualification" value="<?= htmlspecialchars($employee['qualification']) ?>">
             </div>
             
-            <div class="col-md-6 mb-3">
-                <label for="base_salary" class="form-label">Salaire de base *</label>
-                <input type="number" class="form-control clay-input" id="base_salary" name="base_salary" step="0.01" value="<?= $employee['base_salary'] ?>" required>
-            </div>
-            
+
             <div class="col-md-6 mb-3">
                 <label for="status" class="form-label">Statut</label>
                 <select class="form-select clay-input" id="status" name="status">

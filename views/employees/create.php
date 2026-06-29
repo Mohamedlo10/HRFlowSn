@@ -108,15 +108,7 @@ ob_start();
                 </select>
             </div>
             
-            <div class="col-md-6 mb-3">
-                <label for="hire_date" class="form-label">Date d'embauche *</label>
-                <input type="date" class="form-control clay-input" id="hire_date" name="hire_date" value="<?= htmlspecialchars(get_old_input('hire_date')) ?>" required>
-            </div>
-            
-            <div class="col-md-6 mb-3">
-                <label for="base_salary" class="form-label">Salaire de base *</label>
-                <input type="number" class="form-control clay-input" id="base_salary" name="base_salary" step="0.01" value="<?= htmlspecialchars(get_old_input('base_salary')) ?>" required>
-            </div>
+
         </div>
         
         <div class="mt-4">
