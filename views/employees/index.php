@@ -21,7 +21,7 @@ ob_start();
 </div>
 
 <div class="clay-card p-4">
-    <div class="table-container">
+    <div class="table-container table-responsive">
         <table class="clay-table">
             <thead>
                 <tr>
@@ -45,7 +45,7 @@ ob_start();
                     <td><?= htmlspecialchars($employee['email']) ?></td>
                     <td><?= htmlspecialchars($employee['department_name']) ?></td>
                     <td><?= htmlspecialchars($employee['position_name']) ?></td>
-                    <td><?= date('d/m/Y', strtotime($employee['hire_date'])) ?></td>
+                    <td><?= !empty($employee['hire_date']) ? date('d/m/Y', strtotime($employee['hire_date'])) : '<span class="text-muted fst-italic">Non définie</span>' ?></td>
                     <td>
                         <?php
                         $badgeClass = 'badge-success';

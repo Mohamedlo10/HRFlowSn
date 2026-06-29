@@ -88,7 +88,7 @@ class EmployeeController extends Controller {
             ];
             
             if ($this->employeeModel->create($employeeData)) {
-                $newEmployeeId = $this->employeeModel->db->lastInsertId();
+                $newEmployeeId = $this->employeeModel->getLastInsertId();
                 $this->setFlash('success', 'Employé créé avec succès. Veuillez maintenant créer son contrat pour activer son profil.');
                 clear_old_input();
                 $this->redirect('/HRFlowSn/index.php?route=contracts/create&employee_id=' . $newEmployeeId);
