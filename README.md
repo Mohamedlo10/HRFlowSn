@@ -1,144 +1,105 @@
 # HRFlowSn - Système de Gestion des Ressources Humaines
 
-HRFlowSn est une application web de gestion des ressources humaines développée en PHP avec une architecture MVC et un design moderne Claymorphism.
+HRFlowSn est une application web complète de gestion des ressources humaines, développée en PHP avec une architecture MVC, sans utiliser de framework lourd. Elle propose une interface moderne, fluide et réactive (inspirée du Claymorphism), adaptée aux besoins de gestion du personnel.
 
-## Stack Technique
+---
 
-- **PHP 8**
-- **MySQL**
-- **Apache (XAMPP)**
-- **Bootstrap 5**
-- **Chart.js**
-- **DOMPDF** (pour les exports PDF)
-- **PhpSpreadsheet** (pour les exports Excel)
+## 🛠 Stack Technique
 
-## Installation
+- **Backend** : PHP 8 (Architecture MVC native)
+- **Base de données** : MySQL 5.7+
+- **Serveur Web** : Apache (Recommandé via XAMPP)
+- **Frontend** : HTML5, CSS3 (Custom), Bootstrap 5 (Grille et composants basiques)
+- **Graphiques** : Chart.js
+- **Export PDF** : DOMPDF
+- **Export Excel** : PhpSpreadsheet
 
-### Prérequis
+---
 
-- PHP 8 ou supérieur
-- MySQL 5.7 ou supérieur
-- Apache Server (XAMPP recommandé)
-- Composer (pour les dépendances)
+## 📋 Prérequis
 
-### Étapes d'installation
+Avant de commencer l'installation, assurez-vous de disposer des éléments suivants sur votre machine :
 
-1. **Cloner le repository**
-   ```bash
-   git clone <repository-url>
-   cd HRFlowSn
-   ```
+1. **Serveur Local (XAMPP / WAMP / MAMP)**
+   - PHP version 8.0 ou supérieure.
+   - MySQL version 5.7 ou supérieure (ou MariaDB).
+   - Module Apache activé.
+2. **Extensions PHP requises** (à vérifier dans votre `php.ini`) :
+   - `pdo_mysql`
+   - `mbstring`
+   - `gd`
+   - `zip`
+3. **Navigateur Web Moderne** (Chrome, Firefox, Safari, Edge).
 
-2. **Importer la base de données**
-   - Ouvrir phpMyAdmin
-   - Créer une nouvelle base de données nommée `hrflowsn_db`
-   - Importer le fichier `hrflowsn.sql`
+---
 
-3. **Configurer la base de données**
-   - Éditer le fichier `config/database.php`
-   - Modifier les paramètres de connexion si nécessaire (hôte, utilisateur, mot de passe)
+## 🚀 Installation Étape par Étape
 
-4. **Installer les dépendances**
-   ```bash
-   composer require dompdf/dompdf
-   composer require phpoffice/phpspreadsheet
-   ```
+### 1. Déploiement des fichiers
 
-5. **Configurer les permissions**
-   - Assurez-vous que les dossiers suivants sont en écriture :
-     - `uploads/documents/`
-     - `uploads/photos/`
-     - `uploads/exports/`
+**Si vous utilisez XAMPP sous Windows :**
+1. Téléchargez ou clonez le projet.
+2. Copiez le dossier `HRFlowSn` dans votre répertoire web : `C:\xampp\htdocs\`.
+   *Le chemin final devrait être : `C:\xampp\htdocs\HRFlowSn`.*
 
-6. **Démarrer le serveur**
-   - Si vous utilisez XAMPP, placez le projet dans `htdocs`
-   - Accédez à `http://localhost/HRFlowSn`
+**Si vous utilisez XAMPP sous Mac :**
+1. Copiez le dossier dans `/Applications/XAMPP/xamppfiles/htdocs/`.
+   *Le chemin final devrait être : `/Applications/XAMPP/xamppfiles/htdocs/HRFlowSn`.*
 
-## Structure du Projet
+**Si vous utilisez Linux :**
+1. Copiez le dossier dans `/var/www/html/` ou `/opt/lampp/htdocs/`.
+2. Assurez-vous des bonnes permissions : `sudo chown -R www-data:www-data /var/www/html/HRFlowSn`.
 
-```
-HRFlowSn/
-├── assets/
-│   ├── css/          # Styles CSS
-│   ├── js/           # Scripts JavaScript
-│   └── images/       # Images
-├── config/
-│   └── database.php  # Configuration de la base de données
-├── controllers/      # Contrôleurs MVC
-├── models/           # Modèles MVC
-├── views/
-│   ├── auth/         # Vues d'authentification
-│   ├── dashboard/    # Vues du dashboard
-│   ├── employees/    # Vues des employés
-│   ├── contracts/    # Vues des contrats
-│   ├── leaves/       # Vues des congés
-│   ├── payrolls/     # Vues de la paie
-│   ├── trainings/    # Vues des formations
-│   ├── evaluations/  # Vues des évaluations
-│   ├── reports/      # Vues des rapports
-│   ├── settings/     # Vues des paramètres
-│   └── layouts/      # Layouts principaux
-├── includes/
-│   └── session.php   # Gestion des sessions
-├── uploads/
-│   ├── documents/    # Documents uploadés
-│   ├── photos/       # Photos des employés
-│   └── exports/      # Fichiers exportés
-├── vendor/           # Dépendances Composer
-├── database/         # Scripts SQL
-├── index.php         # Point d'entrée
-└── hrflowsn.sql      # Schéma de la base de données
+### 2. Création de la Base de Données
+
+1. Lancez **XAMPP** et démarrez les services **Apache** et **MySQL**.
+2. Ouvrez votre navigateur et accédez à **phpMyAdmin** : `http://localhost/phpmyadmin`
+3. Cliquez sur **Nouvelle base de données** dans le menu de gauche.
+4. Nommez la base : `hrflowsn_db` (Encodage recommandé : `utf8mb4_unicode_ci`).
+5. Cliquez sur le bouton **Créer**.
+
+### 3. Importation des Données (2 options)
+
+Rendez-vous dans votre nouvelle base de données `hrflowsn_db` sur phpMyAdmin, puis allez dans l'onglet **Importer**.
+Vous avez le choix entre deux fichiers SQL situés à la racine du projet :
+
+- **Option A (Base vierge)** : Importez `hrflowsn.sql`. Cela va créer la structure de la base et ajouter uniquement les rôles, départements, et paramètres de base de l'entreprise.
+- **Option B (Avec Données de Démonstration)** : Importez `hrflowsn_demo.sql`. Cela va générer des dizaines d'employés, de contrats, de congés, d'évaluations et de formations pour vous permettre de tester immédiatement l'application.
+
+> **Identifiants de Démonstration (Si Option B choisie) :**
+> - **Administrateur** : `admin@hrflowsn.sn` / Mot de passe : `password`
+> - **RH** : `rh@hrflowsn.sn` / Mot de passe : `password`
+> - **Manager** : `manager@hrflowsn.sn` / Mot de passe : `password`
+> - **Employé** : `employe@hrflowsn.sn` / Mot de passe : `password`
+
+### 4. Configuration de la Base de Données
+
+Ouvrez le fichier `config/database.php` avec votre éditeur de code. Vérifiez et modifiez si besoin les informations de connexion :
+
+```php
+private $host = "localhost";
+private $db_name = "hrflowsn_db";
+private $username = "root";
+private $password = ""; // Sous XAMPP Windows/Mac, le mot de passe est vide par défaut
 ```
 
-## Modules
+---
 
-L'application comprend les modules suivants :
+## 💻 Démarrage et Utilisation
 
-1. **Authentification** - Login, logout, inscription
-2. **Dashboard** - Vue d'ensemble avec statistiques
-3. **Collaborateurs** - Gestion des employés
-4. **Contrats** - Gestion des contrats de travail
-5. **Congés** - Gestion des demandes de congé
-6. **Paie** - Gestion de la paie et des bulletins
-7. **Formations** - Gestion des formations
-8. **Évaluations** - Évaluations des employés
-9. **Rapports** - Rapports et exports
-10. **Paramètres** - Configuration de l'application
+Une fois l'installation terminée, ouvrez votre navigateur et tapez l'adresse suivante :
+👉 **http://localhost/HRFlowSn**
 
-## Utilisateur par Défaut
+Vous arriverez sur la page de connexion. Connectez-vous avec un compte existant (ou un des comptes de démonstration).
 
-Après l'installation, vous pouvez créer un compte via la page d'inscription ou insérer directement un utilisateur dans la base de données :
+### Résolution des Problèmes Courants (FAQ)
 
-```sql
-INSERT INTO users (role_id, email, password) VALUES (1, 'admin@hrflowsn.sn', '$2y$10$hashed_password_here');
-```
+- **Erreur (HY000/2002) - No such file or directory** :
+  Cela signifie que PHP n'arrive pas à se connecter au socket MySQL (très fréquent sur Mac). Dans `config/database.php`, essayez de remplacer `localhost` par `127.0.0.1`.
+- **Page blanche ou erreurs 404** :
+  Vérifiez que le nom de votre dossier dans `htdocs` s'appelle bien exactement `HRFlowSn`. Si vous l'avez nommé autrement, vous devez adapter les liens internes dans le code (notamment les redirections header).
 
-Le mot de passe doit être hashé avec `password_hash()`.
+---
 
-## Rôles
-
-- **Administrateur** - Accès complet à tous les modules
-- **RH** - Gestion des employés, contrats, congés
-- **Manager** - Vue limitée sur son équipe
-- **Employé** - Accès à ses propres informations
-
-## Design
-
-L'application utilise un style **Claymorphism / Soft UI** avec :
-- Palette de couleurs : Primary (#8B5CF6), Secondary (#EC4899), Background (#F6F4FC)
-- Police : Outfit
-- Icônes : Bootstrap Icons
-- Framework CSS : Bootstrap 5
-
-## Développement
-
-Le développement est organisé en sprints :
-
-- **Sprint 1** - Base de données, Authentification, Dashboard ✓
-- **Sprint 2** - Employés, Contrats
-- **Sprint 3** - Congés, Formations, Évaluations
-- **Sprint 4** - Paie, Rapports, Finitions
-
-## Support
-
-Pour toute question ou problème, veuillez contacter l'équipe de développement.
+## 📚 Documentation Supplémentaire
+Pour apprendre à utiliser chaque module de l'application (Tableau de bord, Collaborateurs, Contrats, Congés, Paie...), veuillez consulter le document `MANUEL_UTILISATEUR.md` disponible à la racine du projet. Ce manuel vous guidera visuellement à travers toutes les fonctionnalités de HRFlowSn.
